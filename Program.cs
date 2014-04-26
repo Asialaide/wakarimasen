@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+//using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 
 namespace wakarimasen
 {
@@ -10,6 +10,9 @@ namespace wakarimasen
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Woot");
+
         }
     }
 }
