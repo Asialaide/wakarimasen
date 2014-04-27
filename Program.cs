@@ -26,30 +26,32 @@ namespace wakarimasen
         static void Main(string[] args)
         {
 
-            // Create the main window
+            // Create the main window.
             RenderWindow window = new RenderWindow(new VideoMode(800, 600), "Asialaide");
-            window.Closed += new EventHandler(OnClose);
+            Color windowColor = new Color(135, 206, 250);
+
+            // Video settings.
             window.SetFramerateLimit(60);
             window.SetVerticalSyncEnabled(true);
 
+            // Create events.
+            window.Closed += new EventHandler(OnClose);
             window.KeyPressed += new EventHandler<KeyEventArgs>(OnKeyPressed);
-
-            Color windowColor = new Color(135, 206, 250);
+       
             RenderStates renderAlpha = new RenderStates(BlendMode.Alpha);
 
-            Image testGraphic = new Image("data\\sprites\\testing.png");
-
-            testGraphic.CreateMaskFromColor(new Color(255, 255, 255), 0);
+            Image testGraphic = new Image("data\\graphics\\testing.png");
+            testGraphic.CreateMaskFromColor(new Color(255, 255, 255), 0); // Black mask.
 
             Sprite testSprite = new Sprite(new Texture(testGraphic), new IntRect(0, 0, 16, 16));
             testSprite.Position = new Vector2f(10, 10);
             testSprite.Scale = new Vector2f(6, 6);
-            //littleDude.Color = new Color(255, 255, 255, 200);
+            //testSprite.Color = new Color(255, 255, 255, 200);
 
             Console.WriteLine("Sprite's position: " + testSprite.Position.X + ", " + testSprite.Position.Y);
             Console.WriteLine("Sprite's scale: " + testSprite.Scale.X + ", " + testSprite.Scale.Y);
 
-            // Start the game loop
+            // The game loop.
             while (window.IsOpen())
             {
                 // Process events.
