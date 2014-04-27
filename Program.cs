@@ -22,37 +22,61 @@ namespace wakarimasen
 {
     class Program
     {
-      
+        
+        static void Main(string[] args)
+        {
+
+            // Create the main window
+            RenderWindow window = new RenderWindow(new VideoMode(800, 600), "Asialaide");
+            window.Closed += new EventHandler(OnClose);
+            window.SetFramerateLimit(60);
+            window.SetVerticalSyncEnabled(true);
+
+            window.KeyPressed += new EventHandler<KeyEventArgs>(OnKeyPressed);
+
+            Color windowColor = new Color(135, 206, 250);
+            RenderStates renderAlpha = new RenderStates(BlendMode.Alpha);
+
+            Image testGraphic = new Image("data\\sprites\\testing.png");
+
+            testGraphic.CreateMaskFromColor(new Color(255, 255, 255), 0);
+
+            Sprite testSprite = new Sprite(new Texture(testGraphic), new IntRect(0, 0, 16, 16));
+            testSprite.Position = new Vector2f(10, 10);
+            testSprite.Scale = new Vector2f(6, 6);
+            //littleDude.Color = new Color(255, 255, 255, 200);
+
+            Console.WriteLine("Sprite's position: " + testSprite.Position.X + ", " + testSprite.Position.Y);
+            Console.WriteLine("Sprite's scale: " + testSprite.Scale.X + ", " + testSprite.Scale.Y);
+
+            // Start the game loop
+            while (window.IsOpen())
+            {
+                // Process events.
+                window.DispatchEvents();
+
+                // Clear the window.
+                window.Clear(windowColor);
+
+                // Drawing!
+                window.Draw(testSprite, renderAlpha);
+
+                // Update the window.
+                window.Display();
+            }
+        }    
+
+        static void OnKeyPressed(object sender, EventArgs e)
+        {
+
+        }
+
         static void OnClose(object sender, EventArgs e)
         {
-            // Close the window when OnClose event is received
+            // Close the window when the OnClose event is received.
             RenderWindow window = (RenderWindow)sender;
             window.Close();
         }
 
-        static void Main(string[] args)
-        {
-
-            Console.WriteLine("Woot");
-
-            // Create the main window
-            RenderWindow app = new RenderWindow(new VideoMode(800, 600), "SFML Works!");
-            app.Closed += new EventHandler(OnClose);
-
-            Color windowColor = new Color(0, 192, 255);
-
-            // Start the game loop
-            while (app.IsOpen())
-            {
-                // Process events
-                app.DispatchEvents();
-
-                // Clear screen
-                app.Clear(windowColor);
-
-                // Update the window
-                app.Display();
-            }
-        }
     }
 }
