@@ -40,10 +40,10 @@ namespace wakarimasen
        
             RenderStates renderAlpha = new RenderStates(BlendMode.Alpha);
 
-            Image testGraphic = new Image("data\\graphics\\testing.png");
-            testGraphic.CreateMaskFromColor(new Color(255, 255, 255), 0); // Black mask.
+            Image testGraphic = new Image("data\\graphics\\crf_char.png");
+            testGraphic.CreateMaskFromColor(new Color(255, 174, 201), 0); // Black mask.
 
-            Sprite testSprite = new Sprite(new Texture(testGraphic), new IntRect(0, 0, 16, 16));
+            Sprite testSprite = new Sprite(new Texture(testGraphic), new IntRect(0, 0, 32, 32));
             testSprite.Position = new Vector2f(10, 10);
             testSprite.Scale = new Vector2f(6, 6);
             //testSprite.Color = new Color(255, 255, 255, 200);
