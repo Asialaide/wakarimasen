@@ -20,36 +20,30 @@ using SFML.Window;
 
 namespace wakarimasen
 {
-    class Program
+    class Program 
     {
+
+        // Used as a local reference. 
+        private static RenderWindow window;
         
         static void Main(string[] args)
         {
 
-            // Create the main window.
-            RenderWindow window = new RenderWindow(new VideoMode(800, 600), "Asialaide");
-            Color windowColor = new Color(135, 206, 250);
+            Files.log("Game started.");
 
-            // Video settings.
-            window.SetFramerateLimit(60);
-            window.SetVerticalSyncEnabled(true);
+            Console.Title = "Asialaide";
+
+            new Character("Player", 1, 200, 300);
+           
+            Drawing.initialise();
+            window = Drawing.window; // A local reference. 
 
             // Create events.
-            window.Closed += new EventHandler(OnClose);
-            window.KeyPressed += new EventHandler<KeyEventArgs>(OnKeyPressed);
-       
-            RenderStates renderAlpha = new RenderStates(BlendMode.Alpha);
+            window.Closed += new EventHandler(Program.OnClose);
+            window.KeyPressed += new EventHandler<KeyEventArgs>(Input.OnKeyPressed);
 
-            Image testGraphic = new Image("data\\graphics\\crf_char.png");
-            testGraphic.CreateMaskFromColor(new Color(255, 174, 201), 0); // Black mask.
-
-            Sprite testSprite = new Sprite(new Texture(testGraphic), new IntRect(0, 0, 32, 32));
-            testSprite.Position = new Vector2f(10, 10);
-            testSprite.Scale = new Vector2f(6, 6);
-            //testSprite.Color = new Color(255, 255, 255, 200);
-
-            Console.WriteLine("Sprite's position: " + testSprite.Position.X + ", " + testSprite.Position.Y);
-            Console.WriteLine("Sprite's scale: " + testSprite.Scale.X + ", " + testSprite.Scale.Y);
+            // Load files. 
+            Files.load("data\\graphics\\crf_char.png");
 
             // The game loop.
             while (window.IsOpen())
@@ -57,25 +51,15 @@ namespace wakarimasen
                 // Process events.
                 window.DispatchEvents();
 
-                // Clear the window.
-                window.Clear(windowColor);
-
-                // Drawing!
-                window.Draw(testSprite, renderAlpha);
-
-                // Update the window.
-                window.Display();
+                // Draw everything. 
+                Drawing.drawWindow();
             }
-        }    
-
-        static void OnKeyPressed(object sender, EventArgs e)
-        {
-
+           
         }
 
-        static void OnClose(object sender, EventArgs e)
+        public static void OnClose(object sender, EventArgs e)
         {
-            // Close the window when the OnClose event is received.
+            // Close the window (end the program) when the OnClose event is received.
             RenderWindow window = (RenderWindow)sender;
             window.Close();
         }
